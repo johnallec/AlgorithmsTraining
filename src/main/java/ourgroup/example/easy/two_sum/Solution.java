@@ -20,7 +20,6 @@ public class Solution {
         for(int i = 0; i < nums.length; i+=1) {
             numeri.add(nums[i]);
         }
-        
         Collections.sort(numeri);
         
         int[] copia = new int[numeri.size()];
@@ -28,34 +27,31 @@ public class Solution {
             copia[i] = numeri.get(i);
         }
         int[] soluzione = {-1,-1};
+        
         for(int i = 0; i < numeri.size(); ++i) {
-            if(soluzione[1] != -1) {
-                return soluzione;
-            }
+            if(soluzione[1] != -1)
+                break;
             cerca(i+1, nums.length-1, i, copia, soluzione, target, 0);
         }
         
         if(soluzione[1] == -1)
         	return soluzione;
         
-        for(int i = 0; i < nums.length; i+=1) {
-            if(nums[i] == copia[soluzione[0]]) {
-                soluzione[0] = i;
-            }
-            if(nums[i] == copia[soluzione[1]]) {
-                soluzione[1] = i;
-            }
+        ArrayList<Integer> numsList = new ArrayList<Integer>();
+        
+        for(int i = 0; i < nums.length; ++i) {
+        	numsList.add(nums[i]);
         }
+        
+        soluzione[0] = numsList.indexOf(copia[soluzione[0]]);
+        soluzione[1] = numsList.indexOf(copia[soluzione[1]]);
+        
         return soluzione;
     }
 
     private void cerca(int i, int j, int k, int[] numeri, int[] soluzione, int target, int porcata) {
-        if(i >= j) {
-            return;
-        }
-        
-        int centrale = (i+j)/2;
-        if(numeri[k] > target) {
+    	int centrale = (i+j)/2;
+    	if(i > j) {
             return;
         }
 
