@@ -5,23 +5,38 @@ import java.util.Collections;
 
 public class Solution {
 	
-	public static int[] twoSum(int[] nums, int target) {
+	private static Solution instance = null;
+	
+	private Solution() {}
+	
+	public static Solution getInstance() {
+		if(instance == null)
+			instance = new Solution();
+		return instance;
+	}
+	
+	public int[] twoSum(int[] nums, int target) {
         ArrayList<Integer> numeri = new ArrayList<Integer>();
         for(int i = 0; i < nums.length; i+=1) {
             numeri.add(nums[i]);
         }
+        
         Collections.sort(numeri);
+        
         int[] copia = new int[numeri.size()];
         for(int i = 0; i < numeri.size(); ++i) {
             copia[i] = numeri.get(i);
         }
-        int[] soluzione = new int[2];
+        int[] soluzione = {-1,-1};
         for(int i = 0; i < numeri.size(); ++i) {
-            if(soluzione[soluzione.length-1] != 0) {
+            if(soluzione[1] != -1) {
                 return soluzione;
             }
             cerca(i+1, nums.length-1, i, copia, soluzione, target, 0);
         }
+        
+        if(soluzione[1] == -1)
+        	return soluzione;
         
         for(int i = 0; i < nums.length; i+=1) {
             if(nums[i] == copia[soluzione[0]]) {
@@ -34,7 +49,7 @@ public class Solution {
         return soluzione;
     }
 
-    private static void cerca(int i, int j, int k, int[] numeri, int[] soluzione, int target, int porcata) {
+    private void cerca(int i, int j, int k, int[] numeri, int[] soluzione, int target, int porcata) {
         if(i >= j) {
             return;
         }
