@@ -37,14 +37,26 @@ public class Solution {
         if(soluzione[1] == -1)
         	return soluzione;
         
-        ArrayList<Integer> numsList = new ArrayList<Integer>();
-        
-        for(int i = 0; i < nums.length; ++i) {
-        	numsList.add(nums[i]);
+        int notRead = -1;
+        for(int i=0; i<nums.length; ++i) {
+        	if(copia[soluzione[0]] == nums[i]) {
+        		soluzione[0] = i;
+        		notRead = 1;
+        	}
+        	else if(copia[soluzione[1]] == nums[i]) {
+        		soluzione[1] = i;
+        		notRead = 0;
+        	}
+        	if(notRead != -1) {
+        		for(int j=0; j<nums.length; ++j) {
+        			if(copia[soluzione[notRead]] == nums[j] && j != i) {
+        				soluzione[notRead] = j;
+        				break;
+        			}
+        		}
+        		break;
+        	}
         }
-        
-        soluzione[0] = numsList.indexOf(copia[soluzione[0]]);
-        soluzione[1] = numsList.indexOf(copia[soluzione[1]]);
         
         return soluzione;
     }
