@@ -1,4 +1,4 @@
-package ourgroup.example.easy.two_sum;
+package ourgroup.example.easy.two_sum.sol1;
 
 import java.util.ArrayList;
 import java.util.Collections;
